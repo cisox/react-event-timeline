@@ -18,10 +18,14 @@ export interface TimelineEventProps {
   icon?: React.ReactNode;
   iconColor?: string;
   iconStyle?: object;
+  iconClassName?: string;
   bubbleStyle?: object;
+  bubbleClassName?: string;
   orientation?: string;
   contentStyle?: object;
+  contentClassName?: string;
   cardHeaderStyle?: object;
+  cardHeaderClassName?: string;
   style?: object;
   titleStyle?: object;
   subtitleStyle?: object;
@@ -37,7 +41,11 @@ export interface TimelineBlipProps {
   icon?: React.ReactNode;
   iconColor?: string;
   iconStyle?: object;
+  iconClassName?: string;
+  bubbleStyle?: object;
+  bubbleClassName?: string;
   style?: object;
+  className?: string;
   orientation?: string;
 }
 
