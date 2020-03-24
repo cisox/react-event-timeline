@@ -5,26 +5,28 @@ import s from './styles'
 
 class TimelineEvent extends Component {
   constructor(props) {
-    super(props)
-    this.state = { showContent: this.props.showContent }
+    super(props);
+    this.state = { showContent: this.props.showContent };
     this.toggleContent = this.toggleContent.bind(this)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.showContent !== prevProps.showContent) {
-      this.setState({ showContent: this.props.showContent })
+      this.setState({ showContent: this.props.showContent });
     }
   }
 
   mergeNotificationStyle(iconColor, bubbleStyle, orientation) {
     const iconColorStyle = iconColor
       ? { ...s.eventType, ...{ color: iconColor, borderColor: iconColor } }
-      : s.eventType
+      : s.eventType;
+
     const leftOrRight =
       orientation === 'right'
         ? { ...s['eventType--right'] }
-        : { ...s['eventType--left'] }
-    return { ...iconColorStyle, ...leftOrRight, ...bubbleStyle }
+        : { ...s['eventType--left'] };
+
+    return { ...iconColorStyle, ...leftOrRight, ...bubbleStyle };
   }
 
   mergeContentStyle(contentStyle) {
@@ -37,31 +39,34 @@ class TimelineEvent extends Component {
   }
 
   showAsCard() {
-    const { container } = this.props
-    return container === 'card'
+    const { container } = this.props;
+    return container === 'card';
   }
 
   containerStyle() {
     const { style } = this.props
-    const containerStyle = { ...s.eventContainer, ...style }
+    const containerStyle = { ...s.eventContainer, ...style };
     return this.showAsCard() ? { ...s.card, ...containerStyle } : containerStyle
   }
 
   toggleStyle() {
-    const { container, cardHeaderStyle, collapsible } = this.props
+    const { container, cardHeaderStyle, collapsible } = this.props;
     const messageStyle =
-      container === 'card' ? { ...s.cardTitle, ...cardHeaderStyle } : {}
+      container === 'card' ? { ...s.cardTitle, ...cardHeaderStyle } : {};
     return collapsible ? { ...s.toggleEnabled, ...messageStyle } : messageStyle
   }
 
   toggleContent() {
-    this.setState({ showContent: !this.state.showContent })
+    this.setState({ showContent: !this.state.showContent });
   }
 
   renderChildren() {
-    const { collapsible, contentStyle } = this.props
+    const { collapsible, contentStyle, contentClassName } = this.props;
     return (collapsible && this.state.showContent) || !collapsible ? (
-      <div style={this.mergeContentStyle(contentStyle)}>
+      <div
+          className={contentClassName}
+          style={this.mergeContentStyle(contentStyle)}
+      >
         {this.props.children}
         <div style={s.messageAfter} />
       </div>
@@ -81,7 +86,9 @@ class TimelineEvent extends Component {
       title,
       subtitle,
       iconStyle,
+      iconClassName,
       bubbleStyle,
+      bubbleClassName,
       buttons,
       icon,
       iconColor,
@@ -91,8 +98,10 @@ class TimelineEvent extends Component {
       collapsible,
       onClick,
       onIconClick,
-      className
-    } = this.props
+      className,
+      cardHeaderClassName
+    } = this.props;
+
     const leftOrRightEventStyling =
       orientation === 'right'
         ? { ...s['event--right'] }
@@ -104,6 +113,7 @@ class TimelineEvent extends Component {
     return (
       <div style={{ ...s.event, ...leftOrRightEventStyling }}>
         <div
+          className={bubbleClassName}
           style={this.mergeNotificationStyle(
             iconColor,
             bubbleStyle,
@@ -111,6 +121,7 @@ class TimelineEvent extends Component {
           )}
         >
           <span
+            className={iconClassName}
             style={{ ...s.materialIcons, ...iconStyle }}
             onClick={onIconClick}
           >
@@ -120,6 +131,7 @@ class TimelineEvent extends Component {
         <div style={this.containerStyle()} {...{ onClick, className }}>
           <div style={s.eventContainerBefore} />
           <div
+            className={cardHeaderClassName}
             style={this.toggleStyle()}
             onClick={collapsible && this.toggleContent}
           >
@@ -150,10 +162,14 @@ TimelineEvent.propTypes = {
   icon: PropTypes.node,
   iconColor: PropTypes.string,
   iconStyle: PropTypes.object,
+  iconClassName: PropTypes.string,
   bubbleStyle: PropTypes.object,
+  bubbleClassName: PropTypes.string,
   orientation: PropTypes.string,
   contentStyle: PropTypes.object,
+  contentClassName: PropTypes.string,
   cardHeaderStyle: PropTypes.object,
+  cardHeaderClassName: PropTypes.string,
   style: PropTypes.object,
   titleStyle: PropTypes.object,
   subtitleStyle: PropTypes.object,
@@ -162,13 +178,16 @@ TimelineEvent.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   onIconClick: PropTypes.func
-}
+};
 
 TimelineEvent.defaultProps = {
   createdAt: undefined,
   iconStyle: {},
+  iconClassName: "timeline-icon",
   bubbleStyle: {},
+  bubbleClassName: "timeline-bubble",
   contentStyle: {},
+  contentClassName: "timeline-content",
   cardHeaderStyle: {},
   style: {},
   titleStyle: {},
@@ -178,6 +197,6 @@ TimelineEvent.defaultProps = {
   className: '',
   onClick: () => {},
   onIconClick: () => {}
-}
+};
 
 export default TimelineEvent
