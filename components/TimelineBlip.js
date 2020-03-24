@@ -5,10 +5,10 @@ import s from './styles'
 class TimelineBlip extends Component {
   mergeNotificationStyle(iconColor, bubbleStyle) {
     const iconColorStyle = iconColor
-        ? { ...s.eventType, ...{ color: iconColor, borderColor: iconColor } }
-        : s.eventType;
+      ? { ...s.eventType, ...{ color: iconColor, borderColor: iconColor } }
+      : s.eventType
 
-    return { ...iconColorStyle, ...bubbleStyle };
+    return { ...iconColorStyle, ...bubbleStyle }
   }
 
   iconStyle(iconStyle) {
@@ -27,18 +27,18 @@ class TimelineBlip extends Component {
       iconColor,
       style,
       ...otherProps
-    } = this.props;
+    } = this.props
 
     const leftOrRightEvent = (orientation === 'right') ? { ...s['event--right'] } : { ...s['event--left'] }
     return (
       <div style={{ ...s.event, marginBottom: 50, ...style }}>
         <div
-            className={bubbleClassName}
-            style={this.mergeNotificationStyle(iconColor, bubbleStyle)}
+          className={bubbleClassName}
+          style={this.mergeNotificationStyle(iconColor, bubbleStyle)}
         >
           <span
-              className={iconClassName}
-              style={this.iconStyle(iconStyle)}
+            className={iconClassName}
+            style={this.iconStyle(iconStyle)}
           >
             {icon}
           </span>
@@ -62,14 +62,14 @@ TimelineBlip.propTypes = {
   bubbleClassName: PropTypes.string,
   style: PropTypes.object,
   orientation: PropTypes.string
-};
+}
 
 TimelineBlip.defaultProps = {
   iconStyle: {},
-  iconClassName: "timeline-icon",
+  iconClassName: 'timeline-icon',
   bubbleStyle: {},
-  bubbleClassName: "timeline-bubble",
+  bubbleClassName: 'timeline-bubble',
   style: {}
-};
+}
 
 export default TimelineBlip
