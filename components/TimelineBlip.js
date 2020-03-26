@@ -12,7 +12,7 @@ class TimelineBlip extends Component {
   }
 
   timeStyle() {
-    return this.showAsCard() ? s.time : { ...s.time, color: '#303e49' }
+    return { ...s.time, color: '#303e49' }
   }
 
   iconStyle(iconStyle) {
