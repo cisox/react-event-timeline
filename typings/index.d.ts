@@ -38,6 +38,9 @@ export interface TimelineEventProps {
 
 export interface TimelineBlipProps {
   title: React.ReactNode;
+  subtitle?: React.ReactNode;
+  createdAt?: React.ReactNode;
+  buttons?: React.ReactNode;
   icon?: React.ReactNode;
   iconColor?: string;
   iconStyle?: object;
@@ -45,6 +48,8 @@ export interface TimelineBlipProps {
   bubbleStyle?: object;
   bubbleClassName?: string;
   style?: object;
+  titleStyle?: object;
+  subtitleStyle?: object;
   className?: string;
   orientation?: string;
 }
