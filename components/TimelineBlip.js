@@ -17,14 +17,19 @@ class TimelineBlip extends Component {
 
   render() {
     const {
+      createdAt,
       title,
+      subtitle,
       iconStyle,
       iconClassName,
+      buttons,
       icon,
       bubbleStyle,
       bubbleClassName,
       orientation,
       iconColor,
+      titleStyle,
+      subtitleStyle,
       style,
       ...otherProps
     } = this.props
@@ -44,7 +49,14 @@ class TimelineBlip extends Component {
           </span>
         </div>
         <div {...otherProps} style={{ ...s.blipStyle, ...leftOrRightEvent }}>
-          <div>{title}</div>
+          {createdAt && <div style={this.timeStyle()}>{createdAt}</div>}
+          <div style={titleStyle}>{title}</div>
+          {subtitle && (
+            <div style={{ ...s.subtitle, ...subtitleStyle }}>{subtitle}</div>
+          )}
+          <div style={{ ...s.actionButtons }}>
+            {buttons}
+          </div>
         </div>
         <div style={s.eventAfter} />
       </div>
@@ -54,6 +66,9 @@ class TimelineBlip extends Component {
 
 TimelineBlip.propTypes = {
   title: PropTypes.node.isRequired,
+  subtitle: PropTypes.node,
+  createdAt: PropTypes.node,
+  buttons: PropTypes.node,
   icon: PropTypes.node,
   iconColor: PropTypes.string,
   iconStyle: PropTypes.object,
@@ -61,6 +76,8 @@ TimelineBlip.propTypes = {
   bubbleStyle: PropTypes.object,
   bubbleClassName: PropTypes.string,
   style: PropTypes.object,
+  titleStyle: PropTypes.object,
+  subtitleStyle: PropTypes.object,
   orientation: PropTypes.string
 }
 
